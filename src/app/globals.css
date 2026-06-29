@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-navy-500 antialiased;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-space-grotesk), sans-serif;
+    @apply text-navy-500;
+  }
+
+  code, pre, .mono {
+    font-family: var(--font-jetbrains-mono), monospace;
+  }
+}
+
+@layer components {
+  /* Glass card — light version for white bg */
+  .glass {
+    background: rgba(11, 42, 74, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(11, 42, 74, 0.10);
+    box-shadow: 0 4px 24px rgba(11, 42, 74, 0.07);
+  }
+
+  .glass-hover {
+    transition: all 0.25s ease;
+  }
+
+  .glass-hover:hover {
+    background: rgba(11, 42, 74, 0.08);
+    border-color: rgba(11, 42, 74, 0.18);
+    box-shadow: 0 8px 40px rgba(11, 42, 74, 0.13);
+    transform: translateY(-3px);
+  }
+
+  /* Navy card — solid */
+  .card-navy {
+    @apply bg-navy-500 text-white rounded-2xl;
+    box-shadow: 0 4px 24px rgba(11, 42, 74, 0.18);
+  }
+
+  /* Gold accent badge */
+  .badge-gold {
+    @apply bg-gold-100 text-gold-700 text-xs font-semibold
+           px-2.5 py-0.5 rounded-full;
+  }
+
+  .badge-navy {
+    @apply bg-navy-50 text-navy-500 text-xs font-semibold
+           px-2.5 py-0.5 rounded-full;
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-xs font-semibold uppercase tracking-widest text-navy-300 mb-4;
+  }
+
+  /* Page wrapper */
+  .page-wrap {
+    @apply max-w-4xl mx-auto px-4 py-12;
+  }
+}
