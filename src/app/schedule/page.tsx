@@ -9,8 +9,9 @@ const weeks = [
     dot: 'bg-blue-500',
     numColor: 'bg-blue-500',
     topics: [
-      { name: 'Course Intro & Overview', desc: 'Syllabus walkthrough, grading structure, introduction to vibration vs. control systems.', href: '/syllabus.pdf', isPdf: true },
+      { name: 'Course Intro & Overview', desc: 'Syllabus walkthrough, grading structure, introduction to vibration vs. control systems.', href: '/Syllabus.pdf', isPdf: true },
       { name: 'Control System Background', desc: 'Open-loop vs. closed-loop systems. Block diagrams, signal flow, feedback concepts.', href: '/notes/control-bg', isPdf: false },
+      { name: 'Modeling in the Frequency Domain', desc: 'Chapter 2 — Laplace transform review. Transform pairs, properties, and worked examples.', href: '/notes/laplace', isPdf: false },
       { name: 'Mathematical Modeling', desc: "Newton's laws applied to mechanical systems. Free body diagrams, equations of motion.", href: '/notes/modeling', isPdf: false },
       { name: 'Transfer Functions & Responses', desc: 'Laplace transforms, poles and zeros. Step, impulse, and ramp responses.', href: '/notes/transfer-fn', isPdf: false },
     ],
@@ -140,7 +141,7 @@ function WeekCard({ week, index }: { week: typeof weeks[0]; index: number }) {
 
         <div
           className="overflow-hidden"
-          style={{ maxHeight: open ? '800px' : '0px', transition: 'max-height 0.4s ease' }}
+          style={{ maxHeight: open ? '900px' : '0px', transition: 'max-height 0.4s ease' }}
         >
           <div className="px-6 pb-5 border-t border-navy-500/8">
             <div className="mt-4 space-y-2">
@@ -216,7 +217,7 @@ function WeekCard({ week, index }: { week: typeof weeks[0]; index: number }) {
                 <div className="text-xs text-white/50 font-mono">MEEN 424 - Summer II 2026</div>
               </div>
               <a
-                href="/syllabus.pdf"
+                href="/Syllabus.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition-colors shrink-0"
@@ -235,7 +236,7 @@ function WeekCard({ week, index }: { week: typeof weeks[0]; index: number }) {
             </div>
             <div className="flex-1 bg-gray-100">
               <iframe
-                src="/syllabus.pdf"
+                src="/Syllabus.pdf"
                 className="w-full h-full"
                 title="MEEN 424 Syllabus"
                 style={{ border: 'none' }}
@@ -286,7 +287,7 @@ export default function Schedule() {
             className="text-white/60 text-sm"
             style={{ opacity: mounted ? 1 : 0, transition: 'all 0.5s ease 0.2s' }}
           >
-            Jun 28 to Jul 31 - 4 sessions per week - Click any section to expand then click a topic to open its notes
+            Jun 28 to Jul 31 — 4 sessions per week — Click any section to expand, then click a topic to open its notes
           </p>
         </div>
       </section>
