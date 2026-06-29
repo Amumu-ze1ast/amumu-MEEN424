@@ -431,6 +431,7 @@ export default function ControlBgPage() {
   const [mounted, setMounted] = useState(false)
   const [pdfOpen, setPdfOpen] = useState(false)
   const [quizOpen, setQuizOpen] = useState(false)
+  const [notesOpen, setNotesOpen] = useState(false)
   const [answers, setAnswers] = useState<Record<number, string>>({})
   const [submitted, setSubmitted] = useState<Record<number, boolean>>({})
   const [score, setScore] = useState<number | null>(null)
@@ -606,26 +607,71 @@ export default function ControlBgPage() {
         {/* 7. TRANSFER FUNCTION */}
         <div className="glass rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300" style={cs(0.27)}>
           <div className="flex items-center gap-3 mb-4"><span className="text-2xl">📐</span><h2 className="font-heading font-bold text-navy-500 text-lg">Deriving the closed-loop transfer function</h2></div>
+          <p className="text-sm text-navy-400 leading-relaxed mb-4">Starting from the block diagram, three things are true simultaneously. We combine them algebraically to find Y(s)/R(s).</p>
           <div className="space-y-3">
-            {[{ n: '1', title: 'Error definition', eq: 'E(s) = R(s) - Y(s)', note: 'summing junction' },{ n: '2', title: 'Controller output', eq: 'U(s) = G(s) . E(s)', note: 'forward path' },{ n: '3', title: 'Substitute E(s)', eq: 'Y(s) = G(s) . [R(s) - Y(s)]', note: 'combine' }].map((step, i) => (
+
+            {/* Step by step */}
+            {[
+              { n:'1', title:'Summing junction',    eq:'E(s) = R(s) - Y(s)',              note:'error = reference - output' },
+              { n:'2', title:'Forward path output', eq:'Y(s) = G(s) . E(s)',              note:'plant gain times error' },
+              { n:'3', title:'Substitute Step 1',   eq:'Y(s) = G(s) . [R(s) - Y(s)]',   note:'replace E(s)' },
+              { n:'4', title:'Expand right side',   eq:'Y(s) = G(s).R(s) - G(s).Y(s)',  note:'distribute G(s)' },
+              { n:'5', title:'Collect Y(s) terms',  eq:'Y(s) + G(s).Y(s) = G(s).R(s)',  note:'move to left side' },
+              { n:'6', title:'Factor out Y(s)',      eq:'Y(s)[1 + G(s)] = G(s).R(s)',    note:'factorise' },
+              { n:'7', title:'Divide both sides',   eq:'Y(s)/R(s) = G(s) / [1 + G(s)]', note:'divide by [1 + G(s)]' },
+            ].map((step, i) => (
               <div key={i} className="flex items-center gap-3 bg-gray-50 rounded-lg px-3 py-2.5 hover:bg-gray-100 transition-colors">
                 <div className="w-6 h-6 rounded-full bg-navy-500 text-white flex items-center justify-center text-xs font-bold shrink-0">{step.n}</div>
-                <span className="text-xs text-navy-300 w-32 shrink-0">{step.title}</span>
+                <span className="text-xs text-navy-300 w-36 shrink-0">{step.title}</span>
                 <span className="font-mono text-sm text-gold-600 flex-1">{step.eq}</span>
                 <span className="text-xs text-navy-300 italic hidden sm:block">{step.note}</span>
               </div>
             ))}
-            <div className="rounded-xl p-4 bg-navy-500 hover:bg-navy-400 transition-colors duration-200">
-              <div className="font-mono text-center py-2">
-                <div className="text-white/50 text-xs mb-1">Y(s) + G(s).Y(s) = G(s).R(s)</div>
-                <div className="text-white/50 text-xs mb-3">Y(s)[1 + G(s)] = G(s).R(s)</div>
+
+            {/* Final result box */}
+            <div className="rounded-xl p-5 bg-navy-500">
+              <p className="text-xs text-white/50 text-center mb-3 font-mono">
+                Steps 5 → 6 → 7 collapsed:
+              </p>
+              <div className="font-mono text-center space-y-1 mb-3">
+                <div className="text-white/50 text-xs">Y(s) + G(s).Y(s) = G(s).R(s)</div>
+                <div className="text-white/60 text-xs">Y(s) [1 + G(s)] = G(s).R(s)</div>
+              </div>
+              <div className="font-mono text-center py-2 border-t border-white/10">
                 <div className="text-gold-400 text-2xl font-bold">Y(s)/R(s) = G(s) / [1 + G(s)]</div>
               </div>
-              <p className="text-xs text-white/50 text-center mt-1">With sensor H(s): Y/R = G / (1 + GH)</p>
+              <p className="text-xs text-white/50 text-center mt-3 pt-3 border-t border-white/10">
+                With feedback sensor H(s): &nbsp;&nbsp; Y(s)/R(s) = G(s) / [1 + G(s).H(s)]
+              </p>
             </div>
+
+            {/* With H(s) derivation */}
+            <div className="glass rounded-xl p-4 border-l-4 border-blue-400 hover:bg-navy-500/5 transition-colors">
+              <div className="font-heading font-bold text-navy-500 text-sm mb-2">When sensor gain H(s) is present</div>
+              <p className="text-xs text-navy-400 leading-relaxed mb-3">
+                If the feedback path contains a sensor with gain H(s), the error at the summing junction becomes:
+              </p>
+              <div className="space-y-1.5">
+                {[
+                  { eq:'E(s) = R(s) - H(s).Y(s)',                   note:'error with sensor gain' },
+                  { eq:'Y(s) = G(s).[R(s) - H(s).Y(s)]',           note:'substitute into plant' },
+                  { eq:'Y(s) + G(s).H(s).Y(s) = G(s).R(s)',        note:'expand and collect' },
+                  { eq:'Y(s)/R(s) = G(s) / [1 + G(s).H(s)]',       note:'final result' },
+                ].map((row, i) => (
+                  <div key={i} className="flex items-center gap-3 bg-gray-50 rounded-lg px-3 py-2 hover:bg-gray-100 transition-colors">
+                    <span className="font-mono text-sm text-gold-600 flex-1">{row.eq}</span>
+                    <span className="text-xs text-navy-300 italic hidden sm:block">{row.note}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Key insight */}
             <div className="glass rounded-xl p-4 border-l-4 border-gold-500 hover:bg-navy-500/5 transition-colors">
-              <div className="font-heading font-bold text-navy-500 text-sm mb-1">Why does the denominator become 1 + G?</div>
-              <p className="text-xs text-navy-400 leading-relaxed">The feedback loop means every signal traveling around the loop gets multiplied by G(s). The term (1 + G) accounts for this loop gain. When 1 + G = 0, the closed-loop poles are defined — this is the root of stability analysis.</p>
+              <div className="font-heading font-bold text-navy-500 text-sm mb-1">Why does the denominator become 1 + GH?</div>
+              <p className="text-xs text-navy-400 leading-relaxed">
+                The feedback loop means Y(s) appears on both sides of the equation. Solving algebraically for Y(s) forces us to collect it on the left — producing the factor (1 + GH). This term is called the <strong className="text-navy-500">characteristic polynomial</strong>. Setting it to zero: 1 + GH = 0 defines the closed-loop poles and determines stability.
+              </p>
             </div>
           </div>
         </div>
@@ -715,14 +761,20 @@ export default function ControlBgPage() {
           </div>
         </div>
 
-        {/* 14. QUIZ */}
+        {/* 14. QUIZ + NOTES */}
         <div className="glass rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300" style={cs(0.41)}>
           <div className="flex items-center gap-3 mb-3"><span className="text-2xl">🧠</span><h2 className="font-heading font-bold text-navy-500 text-lg">Test your understanding</h2></div>
           <p className="text-sm text-navy-400 leading-relaxed mb-4">15 multiple choice questions covering the definition, configurations, performance objectives, stability, and the design process.</p>
-          <button onClick={() => setQuizOpen(true)} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy-500 text-white font-semibold text-sm hover:bg-navy-400 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
-            Start quiz
-            <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </button>
+          <div className="flex gap-3 flex-wrap">
+            <button onClick={() => setQuizOpen(true)} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy-500 text-white font-semibold text-sm hover:bg-navy-400 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
+              Start quiz
+              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
+            <button onClick={() => setNotesOpen(true)} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gold-500 text-navy-500 font-semibold text-sm hover:bg-gold-400 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
+              Answer key &amp; notes
+              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+            </button>
+          </div>
         </div>
 
         {/* 15. NEXT */}
@@ -798,6 +850,125 @@ export default function ControlBgPage() {
               {score === null && (
                 <button onClick={handleFinish} className="w-full py-3 rounded-xl bg-gold-500 text-navy-500 font-heading font-bold text-sm hover:bg-gold-400 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">Finish and see score</button>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* NOTES / ANSWER KEY MODAL */}
+      {notesOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(11,42,74,0.80)', backdropFilter: 'blur(8px)' }}
+          onClick={() => setNotesOpen(false)}>
+          <div className="bg-white rounded-2xl overflow-hidden w-full max-w-2xl shadow-2xl flex flex-col"
+            style={{ height: '90vh' }} onClick={e => e.stopPropagation()}>
+
+            {/* Header */}
+            <div className="bg-gold-500 px-5 py-4 flex items-center gap-3 shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-navy-500 flex items-center justify-center text-white font-bold text-xs shrink-0">AN</div>
+              <div className="flex-1">
+                <div className="font-heading font-bold text-navy-500 text-sm">Answer Key &amp; Study Notes</div>
+                <div className="text-xs text-navy-500/60">Control System Background — Session 2</div>
+              </div>
+              <button onClick={() => setNotesOpen(false)}
+                className="w-8 h-8 rounded-lg bg-navy-500/20 hover:bg-navy-500/40 flex items-center justify-center text-navy-500 transition-colors text-sm font-bold shrink-0">
+                X
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto px-5 py-5 space-y-5">
+
+              {/* Answer key */}
+              <div className="glass rounded-xl overflow-hidden">
+                <div className="bg-navy-500 px-4 py-3">
+                  <div className="font-heading font-bold text-white text-sm">Quiz Answer Key</div>
+                  <div className="text-xs text-white/50 mt-0.5">All 15 correct answers with letter, answer text, and explanation</div>
+                </div>
+                <div className="divide-y divide-navy-500/8">
+                  {[
+                    { id:1,  letter:'B', ans:'To obtain a desired output with desired performance given a specified input', exp:'This is the formal textbook definition of a control system — subsystems and plants assembled for desired output with desired performance.' },
+                    { id:2,  letter:'B', ans:'e(t) = r(t) - y(t)', exp:'The error signal is always reference minus output. This drives the controller to reduce the difference to zero.' },
+                    { id:3,  letter:'C', ans:'Output transducer (sensor)', exp:'The output transducer measures the actual output and converts it to the form used by the controller — closing the feedback loop.' },
+                    { id:4,  letter:'C', ans:'Y/R = G divided by (1 + G)', exp:'Derived algebraically: Y = G(R-Y), so Y(1+G) = GR, giving Y/R = G/(1+G). With sensor H: Y/R = G/(1+GH).' },
+                    { id:5,  letter:'B', ans:'Transient response and steady-state error', exp:'The elevator example illustrates both: how fast it reaches the floor (transient) and whether it levels exactly (steady-state error).' },
+                    { id:6,  letter:'D', ans:'Noise elimination', exp:'The four reasons are: power amplification, remote control, convenience of input form, and compensation for disturbances. Noise elimination is not one of them.' },
+                    { id:7,  letter:'B', ans:'Natural response + Forced response', exp:'Total response = natural response (system dynamics) + forced response (due to input). Stability depends on the natural response.' },
+                    { id:8,  letter:'C', ans:'Decays to zero or oscillates as time approaches infinity', exp:'A stable system has a natural response that decays to zero, leaving only the forced response. Marginal stability (oscillation) is also acceptable.' },
+                    { id:9,  letter:'C', ans:'They can correct for disturbances and are more accurate', exp:'Closed-loop systems compensate for disturbances by comparing output to reference and driving the error to zero — the core advantage over open-loop.' },
+                    { id:10, letter:'C', ans:'The actuating signal derived from the error', exp:'The controller processes the error e(t) to produce the actuating signal, which then drives the plant toward the desired output.' },
+                    { id:11, letter:'C', ans:'The system does not drive the plant since output equals desired value', exp:'When e(t) = 0, r(t) = y(t) — the system has reached its goal and no correction is needed.' },
+                    { id:12, letter:'B', ans:'An output transducer that converts temperature to electrical signal', exp:'A thermistor changes electrical resistance with temperature — converting the physical output to an electrical signal for the controller.' },
+                    { id:13, letter:'C', ans:'Define system requirements and specifications', exp:'The design process always starts by identifying what the system must do: transient response specs, steady-state error limits, and stability requirements.' },
+                    { id:14, letter:'C', ans:'The disturbance cannot be detected or corrected', exp:'Open-loop systems have no feedback path — there is no mechanism to detect that a disturbance occurred or to correct its effect on the output.' },
+                    { id:15, letter:'B', ans:'The elevator does not level properly at the correct floor', exp:'Steady-state error means the final resting position differs from the 4th floor — compromising passenger safety and convenience.' },
+                  ].map((item, i) => (
+                    <div key={i} className="px-4 py-3 hover:bg-navy-500/5 transition-colors">
+                      <div className="flex items-start gap-3">
+                        <span className="w-6 h-6 rounded-full bg-navy-500 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">{item.id}</span>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="w-6 h-6 rounded-md bg-green-500 text-white flex items-center justify-center text-xs font-bold shrink-0">
+                              {item.letter}
+                            </span>
+                            <span className="text-xs font-semibold text-green-600 font-mono">{item.ans}</span>
+                          </div>
+                          <div className="text-xs text-navy-400 leading-relaxed ml-8">{item.exp}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Key formulas summary */}
+              <div className="glass rounded-xl overflow-hidden">
+                <div className="bg-navy-500 px-4 py-3">
+                  <div className="font-heading font-bold text-white text-sm">Key Formulas to Remember</div>
+                </div>
+                <div className="p-4 space-y-3">
+                  {[
+                    { label:'Error signal',                    formula:'e(t) = r(t) - y(t)',              note:'Always reference minus output' },
+                    { label:'Open-loop transfer function',     formula:'Y(s)/R(s) = G(s)',                note:'No feedback — forward path only' },
+                    { label:'Closed-loop (unity feedback)',    formula:'Y(s)/R(s) = G(s) / [1 + G(s)]',  note:'Derived from block algebra' },
+                    { label:'Closed-loop (with sensor H)',     formula:'Y/R = G(s) / [1 + G(s)H(s)]',   note:'General closed-loop formula' },
+                    { label:'Total response',                  formula:'Total = Natural + Forced',        note:'Stability determined by natural part' },
+                    { label:'Characteristic equation',        formula:'1 + G(s)H(s) = 0',               note:'Setting this to zero gives poles' },
+                  ].map((f, i) => (
+                    <div key={i} className="flex gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
+                      <div className="flex-1">
+                        <div className="text-xs text-navy-300 mb-0.5">{f.label}</div>
+                        <div className="font-mono text-sm font-bold text-gold-600">{f.formula}</div>
+                        <div className="text-xs text-navy-300 italic mt-0.5">{f.note}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Study tips */}
+              <div className="glass rounded-xl overflow-hidden">
+                <div className="bg-navy-500 px-4 py-3">
+                  <div className="font-heading font-bold text-white text-sm">Study Tips for This Session</div>
+                </div>
+                <div className="p-4 space-y-2">
+                  {[
+                    'Memorize e(t) = r(t) - y(t) — it appears in every closed-loop analysis.',
+                    'Practice deriving Y/R = G/(1+GH) from scratch — it is a guaranteed exam question.',
+                    'Remember the 4 reasons for building control systems: Power, Remote, Convenience, Disturbance.',
+                    'Know the three design objectives in order: Stability first, then transient response, then steady-state accuracy.',
+                    'For stability: natural response must decay to zero. If it grows — system is unstable.',
+                    'The characteristic equation 1 + GH = 0 is fundamental — everything in Weeks 2 and 3 builds on this.',
+                    'Use the elevator example to connect abstract concepts to physical reality in exam explanations.',
+                  ].map((tip, i) => (
+                    <div key={i} className="flex gap-3 items-start p-2 rounded-lg hover:bg-navy-500/5 transition-colors">
+                      <span className="w-5 h-5 rounded-full bg-gold-500 text-navy-500 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">{i + 1}</span>
+                      <span className="text-xs text-navy-400 leading-relaxed">{tip}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
