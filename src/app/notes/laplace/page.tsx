@@ -75,7 +75,9 @@ const questions = [
 
 function SVGDefinition() {
   return (
-    <svg viewBox="0 0 640 130" className="w-full" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>
+    // <svg viewBox="0 0 640 145" className="w-full" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>
+     <svg viewBox="0 0 640 145" className="w-full"
+        style={{  fontFamily: 'JetBrains Mono, monospace' }}> 
       <style>{`
         @keyframes flowDot { 0%{transform:translateX(0);opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{transform:translateX(360px);opacity:0} }
         @keyframes fadeInSVG { from{opacity:0} to{opacity:1} }
@@ -85,47 +87,56 @@ function SVGDefinition() {
         .fadeR { opacity:0; animation: fadeInSVG 0.6s ease 1.3s forwards; }
       `}</style>
 
-      {/* f(t) block */}
+      {/* f(t) block — centered vertically in the SVG */}
       <g className="fadeL">
-        <rect x="20" y="42" width="110" height="44" rx="8" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="1.5"/>
-        <text x="75" y="61" textAnchor="middle" fontSize="13" fill="#0B2A4A" fontWeight="600">f(t)</text>
-        <text x="75" y="77" textAnchor="middle" fontSize="10" fill="#64748b">time domain</text>
+        <rect x="20" y="48" width="110" height="44" rx="8" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="1.5"/>
+        <text x="75" y="67" textAnchor="middle" fontSize="13" fill="#0B2A4A" fontWeight="600">f(t)</text>
+        <text x="75" y="83" textAnchor="middle" fontSize="10" fill="#64748b">time domain</text>
       </g>
 
       {/* Arrow left */}
-      <line x1="130" y1="64" x2="200" y2="64" stroke="#F59E0B" strokeWidth="2" className="fadeL"/>
-      <polygon points="197,59 203,64 197,69" fill="#F59E0B" className="fadeL"/>
+      <line x1="130" y1="70" x2="200" y2="70" stroke="#F59E0B" strokeWidth="2" className="fadeL"/>
+      <polygon points="197,65 203,70 197,75" fill="#F59E0B" className="fadeL"/>
 
-      {/* Integral block — fixed integral notation using tspan for limits */}
+      {/* Integral block — tall enough to contain big integral with limits */}
       <g className="fadeM">
-        <rect x="200" y="22" width="240" height="82" rx="8" fill="#0B2A4A" stroke="#0B2A4A" strokeWidth="1.5"/>
-        <text x="320" y="46" textAnchor="middle" fontSize="11" fill="white" fontWeight="600">Laplace Transform</text>
-        {/* Integral with proper limits using tspan positioning */}
-        <text x="225" y="72" fontSize="28" fill="#F59E0B" fontWeight="400">&#x222B;</text>
-        <text x="238" y="62" fontSize="9"  fill="#F59E0B">&#x221E;</text>
-        <text x="237" y="82" fontSize="9"  fill="#F59E0B">0&#x207B;</text>
-        <text x="255" y="72" fontSize="12" fill="#F59E0B" fontWeight="600">f(t) e</text>
-        <text x="296" y="65" fontSize="9"  fill="#F59E0B">&#x2212;st</text>
-        <text x="310" y="72" fontSize="12" fill="#F59E0B" fontWeight="600"> dt</text>
-        <text x="320" y="96" textAnchor="middle" fontSize="9.5" fill="rgba(255,255,255,0.5)">s = σ + jω  (complex frequency)</text>
+        <rect x="200" y="10" width="240" height="110" rx="8" fill="#0B2A4A" stroke="#0B2A4A" strokeWidth="1.5"/>
+        {/* Title */}
+        <text x="320" y="32" textAnchor="middle" fontSize="11" fill="white" fontWeight="600">Laplace Transform</text>
+        {/* Large integral symbol — baseline at y=90 */}
+        <text x="250" y="92" fontSize="48" fill="#F59E0B" fontWeight="300">&#x222B;</text>
+        {/* Upper limit ∞ — shifted right to sit above right side of ∫ */}
+        <text x="275" y="60" fontSize="11" fill="#F59E0B" fontWeight="700">&#x221E;</text>
+        {/* Lower limit 0⁻ — stays below left side of ∫ */}
+        <text x="260" y="113" fontSize="11" fill="#F59E0B" fontWeight="700">0&#x207B;</text>
+        {/* f(t) — moved left, tighter spacing */}
+        <text x="270" y="80" fontSize="14" fill="#F59E0B" fontWeight="700">f(t)</text>
+        {/* e base — immediately after f(t) */}
+        <text x="305" y="80" fontSize="14" fill="#F59E0B" fontWeight="700">e</text>
+        {/* −st superscript — tight above e */}
+        <text x="310" y="73" fontSize="10" fill="#F59E0B" fontWeight="700">&#x2212;st</text>
+        {/* dt — immediately after superscript width */}
+        <text x="330" y="80" fontSize="14" fill="#F59E0B" fontWeight="700">dt</text>
+        {/* s description */}
+        <text x="320" y="112" textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.4)">s = σ + jω</text>
       </g>
 
       {/* Arrow right */}
-      <line x1="440" y1="64" x2="510" y2="64" stroke="#F59E0B" strokeWidth="2" className="fadeM"/>
-      <polygon points="507,59 513,64 507,69" fill="#F59E0B" className="fadeM"/>
+      <line x1="440" y1="70" x2="510" y2="70" stroke="#F59E0B" strokeWidth="2" className="fadeM"/>
+      <polygon points="507,65 513,70 507,75" fill="#F59E0B" className="fadeM"/>
 
       {/* F(s) block */}
       <g className="fadeR">
-        <rect x="510" y="42" width="110" height="44" rx="8" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="1.5"/>
-        <text x="565" y="61" textAnchor="middle" fontSize="13" fill="#0B2A4A" fontWeight="600">F(s)</text>
-        <text x="565" y="77" textAnchor="middle" fontSize="10" fill="#64748b">s-domain</text>
+        <rect x="510" y="48" width="110" height="44" rx="8" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="1.5"/>
+        <text x="565" y="67" textAnchor="middle" fontSize="13" fill="#0B2A4A" fontWeight="600">F(s)</text>
+        <text x="565" y="83" textAnchor="middle" fontSize="10" fill="#64748b">s-domain</text>
       </g>
 
       {/* Traveling dot */}
-      <circle className="flowDot" cx="130" cy="64" r="6" fill="#F59E0B"/>
+      <circle className="flowDot" cx="130" cy="70" r="6" fill="#F59E0B"/>
 
       {/* Caption */}
-      <text x="320" y="122" textAnchor="middle" fontSize="11" fill="#64748b">Figure 1: The Laplace transform maps f(t) to F(s) — differential equations become algebra</text>
+      <text x="320" y="136" textAnchor="middle" fontSize="11" fill="#64748b">Figure 1: The Laplace transform maps f(t) to F(s) — differential equations become algebra</text>
     </svg>
   )
 }
@@ -178,14 +189,8 @@ function SVGProperties() {
 }
 
 function SVGEatDerivation() {
-  const steps = [
-    { y:10,  label:'Apply definition',              eq:'L{e^(at)} = INT_0^inf  e^(-st) . e^(at) dt', cls:'s0' },
-    { y:52,  label:'Combine exponents',             eq:'= INT_0^inf  e^((a-s)t) dt',                  cls:'s1' },
-    { y:94,  label:'Evaluate (need s > a)',         eq:'= [ e^((a-s)t) / (a-s) ]_0^inf',              cls:'s2' },
-    { y:136, label:'Apply limits (to 0 at inf, 1 at 0)', eq:'= 0 - 1/(a-s)  =  1/(s-a)',            cls:'s3' },
-  ]
   return (
-    <svg viewBox="0 0 620 180" className="w-full" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>
+    <svg viewBox="0 0 620 220" className="w-full" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
       <style>{`
         @keyframes drawLine { to{stroke-dashoffset:0} }
         @keyframes fadeSVG { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
@@ -196,16 +201,75 @@ function SVGEatDerivation() {
         .arr{stroke-dasharray:300;stroke-dashoffset:300;animation:drawLine 0.6s ease 0.4s forwards}
       `}</style>
 
-      {steps.map((step, i) => (
-        <g key={i} className={step.cls}>
-          <rect x="20" y={step.y} width="580" height="32" rx="6"
-            fill={i === 3 ? '#0B2A4A' : '#f8fafc'} stroke={i === 3 ? '#0B2A4A' : '#e2e8f0'} strokeWidth="1.2"/>
-          <text x="36" y={step.y+14} fontSize="9" fill={i === 3 ? 'rgba(255,255,255,0.5)' : '#64748b'}>{step.label}</text>
-          <text x="36" y={step.y+27} fontSize="11" fill={i === 3 ? '#F59E0B' : '#0B2A4A'} fontWeight={i===3?'700':'500'}>{step.eq}</text>
-          {i < 3 && <line x1="310" y1={step.y+32} x2="310" y2={step.y+40} stroke="#F59E0B" strokeWidth="1.5" className="arr"/>}
-        </g>
-      ))}
-      <text x="310" y="176" textAnchor="middle" fontSize="11" fill="#64748b">{'Figure 2: Step-by-step derivation of L{e^(at)} = 1/(s-a)'}</text>
+      {/* Step 0: Apply definition */}
+      <g className="s0">
+        <rect x="20" y="8" width="580" height="38" rx="6" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1.2"/>
+        <text x="36" y="22" fontSize="9" fill="#64748b">Apply definition</text>
+        {/* L{e^(at)} = ∫₀^∞ e^(-st) · e^(at) dt */}
+        <text x="36" y="38" fontSize="11" fill="#0B2A4A" fontWeight="500">L&#123;e</text>
+        <text x="55" y="31" fontSize="8" fill="#0B2A4A">at</text>
+        <text x="63" y="38" fontSize="11" fill="#0B2A4A" fontWeight="500">&#125; =</text>
+        {/* integral */}
+        <text x="88" y="42" fontSize="20" fill="#0B2A4A" fontWeight="300">&#x222B;</text>
+        <text x="100" y="28" fontSize="8" fill="#0B2A4A">&#x221E;</text>
+        <text x="97" y="47" fontSize="8" fill="#0B2A4A">0</text>
+        <text x="108" y="38" fontSize="11" fill="#0B2A4A" fontWeight="500"> e</text>
+        <text x="120" y="31" fontSize="8" fill="#0B2A4A">&#x2212;st</text>
+        <text x="135" y="38" fontSize="11" fill="#0B2A4A" fontWeight="500"> · e</text>
+        <text x="155" y="31" fontSize="8" fill="#0B2A4A">at</text>
+        <text x="163" y="38" fontSize="11" fill="#0B2A4A" fontWeight="500"> dt</text>
+        <line x1="310" y1="46" x2="310" y2="58" stroke="#F59E0B" strokeWidth="1.5" className="arr"/>
+      </g>
+
+      {/* Step 1: Combine exponents */}
+      <g className="s1">
+        <rect x="20" y="60" width="580" height="38" rx="6" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1.2"/>
+        <text x="36" y="74" fontSize="9" fill="#64748b">Combine exponents</text>
+        <text x="36" y="90" fontSize="11" fill="#0B2A4A" fontWeight="500">=</text>
+        <text x="50" y="94" fontSize="20" fill="#0B2A4A" fontWeight="300">&#x222B;</text>
+        <text x="62" y="80" fontSize="8" fill="#0B2A4A">&#x221E;</text>
+        <text x="59" y="99" fontSize="8" fill="#0B2A4A">0</text>
+        <text x="70" y="90" fontSize="11" fill="#0B2A4A" fontWeight="500"> e</text>
+        <text x="80" y="83" fontSize="8" fill="#0B2A4A">(a&#x2212;s)t</text>
+        <text x="113" y="90" fontSize="11" fill="#0B2A4A" fontWeight="500"> dt</text>
+        <line x1="310" y1="98" x2="310" y2="110" stroke="#F59E0B" strokeWidth="1.5" className="arr"/>
+      </g>
+
+      {/* Step 2: Evaluate */}
+      <g className="s2">
+        <rect x="20" y="112" width="580" height="38" rx="6" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1.2"/>
+        <text x="36" y="126" fontSize="9" fill="#64748b">Evaluate (need s &gt; a)</text>
+        {/* = [ e^(a-s)t / (a-s) ] from 0 to ∞ — using fraction */}
+        <text x="36" y="143" fontSize="11" fill="#0B2A4A" fontWeight="500">= [  e</text>
+        <text x="66" y="136" fontSize="8" fill="#0B2A4A">(a&#x2212;s)t</text>
+        {/* fraction line */}
+        <line x1="95" y1="140" x2="120" y2="140" stroke="#0B2A4A" strokeWidth="1"/>
+        <text x="98" y="137" fontSize="8" fill="#0B2A4A">1</text>
+        <text x="96" y="148" fontSize="8" fill="#0B2A4A">a&#x2212;s</text>
+        <text x="122" y="143" fontSize="11" fill="#0B2A4A" fontWeight="500"> ]</text>
+        <text x="134" y="136" fontSize="8" fill="#0B2A4A">&#x221E;</text>
+        <text x="134" y="148" fontSize="8" fill="#0B2A4A">0</text>
+        <line x1="310" y1="150" x2="310" y2="162" stroke="#F59E0B" strokeWidth="1.5" className="arr"/>
+      </g>
+
+      {/* Step 3: Apply limits — final result */}
+      <g className="s3">
+        <rect x="20" y="164" width="580" height="38" rx="6" fill="#0B2A4A" stroke="#0B2A4A" strokeWidth="1.2"/>
+        <text x="36" y="178" fontSize="9" fill="rgba(255,255,255,0.5)">Apply limits (→ 0 at ∞,  1 at 0)</text>
+        {/* = 0 - 1/(a-s) = 1/(s-a) as fractions */}
+        <text x="36" y="195" fontSize="11" fill="#F59E0B" fontWeight="700">= 0 &#x2212;</text>
+        {/* fraction 1/(a-s) */}
+        <line x1="80" y1="190" x2="105" y2="190" stroke="#F59E0B" strokeWidth="1.2"/>
+        <text x="88" y="187" fontSize="9" fill="#F59E0B" fontWeight="700">1</text>
+        <text x="81" y="198" fontSize="9" fill="#F59E0B" fontWeight="700">a&#x2212;s</text>
+        <text x="108" y="195" fontSize="11" fill="#F59E0B" fontWeight="700">  =</text>
+        {/* fraction 1/(s-a) */}
+        <line x1="128" y1="190" x2="153" y2="190" stroke="#F59E0B" strokeWidth="1.2"/>
+        <text x="136" y="187" fontSize="9" fill="#F59E0B" fontWeight="700">1</text>
+        <text x="129" y="198" fontSize="9" fill="#F59E0B" fontWeight="700">s&#x2212;a</text>
+      </g>
+
+      <text x="310" y="215" textAnchor="middle" fontSize="10" fill="#64748b">Figure 2: Step-by-step derivation of L&#123;eᵃᵗ&#125; = 1/(s−a)</text>
     </svg>
   )
 }
@@ -413,11 +477,28 @@ export default function LaplacePage() {
             <h2 className="font-heading font-bold text-navy-500 text-lg">The Laplace transform definition</h2>
           </div>
           <div className="rounded-xl p-5 bg-navy-500 mb-4">
-            <p className="text-xs text-white/50 text-center mb-2">Equation (2.1)</p>
-            <div className="font-mono text-center text-gold-400 text-xl font-bold py-2">
-              L[f(t)] = F(s) = ∫₀₋^∞ f(t) e⁻ˢᵗ dt
-            </div>
-            <p className="text-xs text-white/50 text-center mt-2">where s = σ + jω is a complex variable</p>
+            <p className="text-xs text-white/50 text-center mb-3">Equation (2.1)</p>
+            {/* Inline SVG for proper integral notation with superscript/subscript limits */}
+            <svg viewBox="0 0 560 72" className="w-full max-w-lg mx-auto" style={{  fontFamily: 'JetBrains Mono, monospace' }}>
+              {/* L[f(t)] = F(s) = */}
+              <text x="30"   y="44" fontSize="22" fill="#F59E0B" fontWeight="700">L[f(t)]</text>
+              <text x="130" y="44" fontSize="22" fill="#F59E0B" fontWeight="700">=</text>
+              <text x="150" y="44" fontSize="22" fill="#F59E0B" fontWeight="700">F(s)</text>
+              <text x="205" y="44" fontSize="22" fill="#F59E0B" fontWeight="700">=</text>
+              {/* Integral symbol */}
+              <text x="220" y="54" fontSize="42" fill="#F59E0B" fontWeight="300">&#x222B;</text>
+              {/* Upper limit ∞ */}
+              <text x="238" y="22" fontSize="14" fill="#F59E0B" fontWeight="600">&#x221E;</text>
+              {/* Lower limit 0⁻ */}
+              <text x="235" y="64" fontSize="13" fill="#F59E0B" fontWeight="600">0&#x207B;</text>
+              {/* f(t)e */}
+              <text x="255" y="44" fontSize="22" fill="#F59E0B" fontWeight="700">f(t) e</text>
+              {/* Exponent -st */}
+              <text x="330" y="28" fontSize="14" fill="#F59E0B" fontWeight="600">&#x2212;st</text>
+              {/* dt */}
+              <text x="360" y="44" fontSize="22" fill="#F59E0B" fontWeight="700"> dt</text>
+            </svg>
+            <p className="text-xs text-white/50 text-center mt-1">where s = σ + jω is a complex variable</p>
           </div>
           <div className="space-y-2">
             {[
@@ -451,20 +532,65 @@ export default function LaplacePage() {
             {/* Chain rule */}
             <div className="glass rounded-xl p-4 border-l-4 border-blue-400">
               <div className="font-heading font-bold text-navy-500 text-sm mb-2">Chain Rule</div>
-              <div className="font-mono text-center text-gold-600 text-sm font-bold py-2 bg-gray-50 rounded-lg mb-3">
-                d/dx[f(g(x))] = f'(g(x)) · g'(x)
+              <div className="flex items-center justify-center gap-3 py-3 bg-gray-50 rounded-lg mb-3">
+                {/* d/dx as a vertical fraction */}
+                <div className="text-center font-math text-gold-600 font-bold">
+                  <div className="text-sm border-b-2 border-gold-500 pb-0.5 px-1">d</div>
+                  <div className="text-sm pt-0.5 px-1">dx</div>
+                </div>
+                {/* rest of equation */}
+                <span className="font-mono text-gold-600 text-sm font-bold">
+                  [f(g(x))] = f'(g(x)) · g'(x)
+                </span>
               </div>
               <Collapsible label="Show examples (1–2)">
                 <div className="space-y-3 mt-2">
-                  {[
-                    { n:'1', fn:'f(x) = eˣ',    sol:'f\'(x) = eˣ  (since (eˣ)\' = eˣ)' },
-                    { n:'2', fn:'f(x) = e²ˣ',   sol:'Let y = eᵘ, u = 2x → dy/du = eᵘ, du/dx = 2\ndy/dx = eᵘ · 2 = 2e²ˣ' },
-                  ].map((ex, i) => (
-                    <div key={i} className="bg-gray-50 rounded-lg p-3">
-                      <div className="text-xs font-bold text-navy-500 mb-1">Example {ex.n}: {ex.fn}</div>
-                      <div className="font-mono text-xs text-gold-700 whitespace-pre-line">{ex.sol}</div>
+                  {/* Example 1 */}
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <div className="text-xs font-bold text-navy-500 mb-1">Example 1: f(x) = eˣ</div>
+                    <div className="font-mono text-xs text-gold-700">f'(x) = eˣ  (since (eˣ)' = eˣ)</div>
+                  </div>
+                  {/* Example 2 — fraction layout */}
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <div className="text-xs font-bold text-navy-500 mb-2">Example 2: f(x) = e²ˣ</div>
+                    <div className="space-y-3 font-mono text-xs text-gold-700">
+                      <div>Let y = eᵘ,  u = 2x</div>
+                      <div className="flex items-center gap-4 flex-wrap">
+                        <div className="flex items-center gap-1.5">
+                          <div className="text-center">
+                            <div className="border-b-2 border-gold-500 pb-0.5 px-1 leading-tight">dy</div>
+                            <div className="pt-0.5 px-1 leading-tight">du</div>
+                          </div>
+                          <span>= eᵘ</span>
+                        </div>
+                        <span className="text-navy-300">,</span>
+                        <div className="flex items-center gap-1.5">
+                          <div className="text-center">
+                            <div className="border-b-2 border-gold-500 pb-0.5 px-1 leading-tight">du</div>
+                            <div className="pt-0.5 px-1 leading-tight">dx</div>
+                          </div>
+                          <span>= 2</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <div className="text-center">
+                          <div className="border-b-2 border-gold-500 pb-0.5 px-1 leading-tight">dy</div>
+                          <div className="pt-0.5 px-1 leading-tight">dx</div>
+                        </div>
+                        <span>=</span>
+                        <div className="text-center">
+                          <div className="border-b-2 border-gold-500 pb-0.5 px-1 leading-tight">dy</div>
+                          <div className="pt-0.5 px-1 leading-tight">du</div>
+                        </div>
+                        <span>·</span>
+                        <div className="text-center">
+                          <div className="border-b-2 border-gold-500 pb-0.5 px-1 leading-tight">du</div>
+                          <div className="pt-0.5 px-1 leading-tight">dx</div>
+                        </div>
+                        <span>= eᵘ · 2 = 2e²ˣ</span>
+                      </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </Collapsible>
             </div>
@@ -472,8 +598,14 @@ export default function LaplacePage() {
             {/* Product rule */}
             <div className="glass rounded-xl p-4 border-l-4 border-green-500">
               <div className="font-heading font-bold text-navy-500 text-sm mb-2">Product Rule</div>
-              <div className="font-mono text-center text-gold-600 text-sm font-bold py-2 bg-gray-50 rounded-lg mb-3">
-                d/dx[f(x)·g(x)] = f'(x)g(x) + f(x)g'(x)
+              <div className="flex items-center justify-center gap-3 py-3 bg-gray-50 rounded-lg mb-3">
+                <div className="text-center font-math text-gold-600 font-bold">
+                  <div className="text-sm border-b-2 border-gold-500 pb-0.5 px-1">d</div>
+                  <div className="text-sm pt-0.5 px-1">dx</div>
+                </div>
+                <span className="font-mono text-gold-600 text-sm font-bold">
+                  [f(x)·g(x)] = f'(x)g(x) + f(x)g'(x)
+                </span>
               </div>
               <Collapsible label="Show example (3)">
                 <div className="bg-gray-50 rounded-lg p-3 mt-2">
@@ -493,17 +625,50 @@ export default function LaplacePage() {
               </div>
               <Collapsible label="Show examples (4–7)">
                 <div className="space-y-3 mt-2">
-                  {[
-                    { n:'4', fn:'∫ eˣ dx',                       sol:'= eˣ + C  (since (eˣ)\' = eˣ)' },
-                    { n:'5', fn:'∫ e^(eˣ)·eˣ dx',               sol:'Let u = eˣ → du = eˣ dx\n∫ eᵘ du = eᵘ + C = e^(eˣ) + C' },
-                    { n:'6', fn:'∫ e^(eˣ)·eˣ dx (repeated)',     sol:'Same result: e^(eˣ) + C' },
-                    { n:'7', fn:'∫(1−1/w)cos(w−ln w)dw',        sol:'Let u = w − ln w → du = (1−1/w)dw\n∫ cos(u) du = sin(u) + C = sin(w−ln w) + C' },
-                  ].map((ex, i) => (
-                    <div key={i} className="bg-gray-50 rounded-lg p-3">
-                      <div className="text-xs font-bold text-navy-500 mb-1">Example {ex.n}: {ex.fn}</div>
-                      <div className="font-mono text-xs text-gold-700 whitespace-pre-line">{ex.sol}</div>
+
+                  {/* Example 4 */}
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <div className="text-xs font-bold text-navy-500 mb-1">Example 4: ∫ e<sup>x</sup> dx</div>
+                    <div className="font-mono text-xs text-gold-700">
+                      = e<sup>x</sup> + C &nbsp;&nbsp;<span className="text-navy-300">(since (e<sup>x</sup>)' = e<sup>x</sup>)</span>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Example 5 */}
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <div className="text-xs font-bold text-navy-500 mb-1">Example 5: ∫ e<sup>e<sup>x</sup></sup>·e<sup>x</sup> dx</div>
+                    <div className="font-mono text-xs text-gold-700 space-y-1">
+                      <div>Let u = e<sup>x</sup> → du = e<sup>x</sup> dx</div>
+                      <div>∫ e<sup>u</sup> du = e<sup>u</sup> + C = e<sup>e<sup>x</sup></sup> + C</div>
+                    </div>
+                  </div>
+
+                  {/* Example 6 */}
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <div className="text-xs font-bold text-navy-500 mb-1">Example 6: ∫ e<sup>e<sup>x</sup></sup>·e<sup>x</sup> dx (repeated)</div>
+                    <div className="font-mono text-xs text-gold-700">
+                      Same result: e<sup>e<sup>x</sup></sup> + C
+                    </div>
+                  </div>
+
+                  {/* Example 7 — with 1/w as two-line fraction */}
+                  <div className="bg-gray-50 rounded-lg p-3">
+                    <div className="text-xs font-bold text-navy-500 mb-2">
+                      Example 7: ∫(1 − <span className="inline-flex flex-col items-center text-[10px] font-mono leading-none align-middle mx-0.5"><span className="border-b border-navy-500 px-0.5">1</span><span className="px-0.5">w</span></span>)cos(w − ln w) dw
+                    </div>
+                    <div className="font-mono text-xs text-gold-700 space-y-1">
+                      <div className="flex items-center gap-1 flex-wrap">
+                        <span>Let u = w − ln w  →  du = (1 −</span>
+                        <div className="inline-flex flex-col items-center text-[10px] leading-none mx-0.5">
+                          <span className="border-b-2 border-gold-500 px-1 pb-0.5 leading-tight">1</span>
+                          <span className="px-1 pt-0.5 leading-tight">w</span>
+                        </div>
+                        <span>) dw</span>
+                      </div>
+                      <div>∫ cos(u) du = sin(u) + C = sin(w − ln w) + C</div>
+                    </div>
+                  </div>
+
                 </div>
               </Collapsible>
             </div>
@@ -529,17 +694,38 @@ export default function LaplacePage() {
             <Collapsible label="Show full derivation">
               <div className="space-y-2 mt-3">
                 {[
-                  { step:'Apply definition',          eq:'F(s) = ∫₀^∞ Ae⁻ᵃᵗ · e⁻ˢᵗ dt' },
-                  { step:'Combine exponents',         eq:'= A ∫₀^∞ e⁻⁽ˢ⁺ᵃ⁾ᵗ dt' },
-                  { step:'Integrate',                 eq:'= A [-1/(s+a) · e⁻⁽ˢ⁺ᵃ⁾ᵗ]₀^∞' },
-                  { step:'Apply limits (→0 at ∞)',    eq:'= A [0 − (−1/(s+a))]' },
-                  { step:'Final result',              eq:'F(s) = A / (s+a)' },
+                  { step:'Apply definition',       eq:'F(s) = ∫₀^∞ Ae⁻ᵃᵗ · e⁻ˢᵗ dt' },
+                  { step:'Combine exponents',      eq:'= A ∫₀^∞ e⁻⁽ˢ⁺ᵃ⁾ᵗ dt' },
+                  { step:'Apply limits (→0 at ∞)', eq:'= A [0 − (−1/(s+a))]' },
                 ].map((r, i) => (
-                  <div key={i} className={`flex gap-3 p-2.5 rounded-lg ${i === 4 ? 'bg-navy-500' : 'bg-gray-50'}`}>
-                    <span className={`text-xs w-40 shrink-0 ${i===4?'text-white/50':'text-navy-300'}`}>{r.step}</span>
-                    <span className={`font-mono text-sm font-bold ${i===4?'text-gold-400':'text-gold-600'}`}>{r.eq}</span>
+                  <div key={i} className="flex gap-3 p-2.5 rounded-lg bg-gray-50">
+                    <span className="text-xs w-40 shrink-0 text-navy-300">{r.step}</span>
+                    <span className="font-mono text-sm font-bold text-gold-600">{r.eq}</span>
                   </div>
                 ))}
+                {/* Integrate step with fraction */}
+                <div className="flex gap-3 p-2.5 rounded-lg bg-gray-50 items-center">
+                  <span className="text-xs w-40 shrink-0 text-navy-300">Integrate</span>
+                  <div className="flex items-center gap-1 font-mono text-sm font-bold text-gold-600">
+                    <span>= A [</span>
+                    <div className="text-center mx-1">
+                      <div className="border-b-2 border-gold-500 pb-0.5 px-1 leading-tight">−1</div>
+                      <div className="pt-0.5 px-1 leading-tight">s+a</div>
+                    </div>
+                    <span>· e⁻⁽ˢ⁺ᵃ⁾ᵗ]₀^∞</span>
+                  </div>
+                </div>
+                {/* Final result with fraction */}
+                <div className="flex gap-3 p-2.5 rounded-lg bg-navy-500 items-center">
+                  <span className="text-xs w-40 shrink-0 text-white/50">Final result</span>
+                  <div className="flex items-center gap-2 font-mono text-sm font-bold text-gold-400">
+                    <span>F(s) =</span>
+                    <div className="text-center">
+                      <div className="border-b-2 border-gold-400 pb-0.5 px-2 leading-tight">A</div>
+                      <div className="pt-0.5 px-2 leading-tight">s + a</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </Collapsible>
           </div>
@@ -550,8 +736,13 @@ export default function LaplacePage() {
               <span className="px-2 py-0.5 rounded-lg bg-blue-500 text-white text-xs font-bold">Derivation</span>
               <span className="font-heading font-bold text-navy-500 text-sm">Compute L{'{'}eᵃᵗ{'}'}</span>
             </div>
-            <div className="font-mono text-sm text-gold-600 font-bold text-center py-2 bg-gray-50 rounded-lg mb-3">
-              f(t) = eᵃᵗ  →  F(s) = 1/(s−a),  provided s &gt; a
+            <div className="flex items-center justify-center gap-2 py-3 bg-gray-50 rounded-lg mb-3 font-mono text-sm font-bold text-gold-600 flex-wrap">
+              <span>f(t) = eᵃᵗ  →  F(s) =</span>
+              <div className="text-center">
+                <div className="border-b-2 border-gold-500 pb-0.5 px-2 leading-tight">1</div>
+                <div className="pt-0.5 px-2 leading-tight">s − a</div>
+              </div>
+              <span>,  provided s &gt; a</span>
             </div>
             <Collapsible label="Show step-by-step derivation">
               <div className="bg-gray-50 rounded-xl p-4 mt-3">
@@ -571,49 +762,93 @@ export default function LaplacePage() {
             <SVGProperties />
           </div>
           <div className="space-y-3">
-
+            {/* Helper: inline fraction component */}
             {[
               {
                 color:'border-blue-400', badge:'bg-blue-500', label:'Linearity',
-                eq:'L{af(t) + bg(t)} = aF(s) + bG(s)',
+                eq: <span className="font-mono text-sm text-gold-600 font-bold">L&#123;af(t) + bg(t)&#125; = aF(s) + bG(s)</span>,
                 note:'Given f(t) and g(t), for any constants a and b.',
-                example:'f(t) = 6e⁻⁵ᵗ + e³ᵗ + 5t³ − 9',
-                solution:'F(s) = 6/(s+5) + 1/(s−3) + 30/s⁴ − 9/s',
+                question:'f(t) = 6e⁻⁵ᵗ + e³ᵗ + 5t³ − 9',
+                answer: (
+                  <div className="flex items-center gap-2 flex-wrap font-mono text-xs text-green-700 font-bold">
+                    <span>F(s) =</span>
+                    <div className="text-center"><div className="border-b-2 border-green-500 pb-0.5 px-1 leading-tight">6</div><div className="pt-0.5 px-1 leading-tight">s+5</div></div>
+                    <span>+</span>
+                    <div className="text-center"><div className="border-b-2 border-green-500 pb-0.5 px-1 leading-tight">1</div><div className="pt-0.5 px-1 leading-tight">s−3</div></div>
+                    <span>+</span>
+                    <div className="text-center"><div className="border-b-2 border-green-500 pb-0.5 px-1 leading-tight">30</div><div className="pt-0.5 px-1 leading-tight">s⁴</div></div>
+                    <span>−</span>
+                    <div className="text-center"><div className="border-b-2 border-green-500 pb-0.5 px-1 leading-tight">9</div><div className="pt-0.5 px-1 leading-tight">s</div></div>
+                  </div>
+                ),
               },
               {
                 color:'border-green-500', badge:'bg-green-500', label:'Differentiation',
-                eq:"L{f'(t)} = sF(s) − f(0)",
+                eq: <span className="font-mono text-sm text-gold-600 font-bold">L&#123;f'(t)&#125; = sF(s) − f(0)</span>,
                 note:'Each derivative multiplies by s and subtracts an initial condition.',
-                example:"L{f''(t)} = ?",
-                solution:"L{f''(t)} = s²F(s) − sf(0) − f'(0)",
+                question:"L{f''(t)} = ?",
+                answer: <span className="font-mono text-xs text-green-700 font-bold">L&#123;f''(t)&#125; = s²F(s) − sf(0) − f'(0)</span>,
               },
               {
                 color:'border-gold-500', badge:'bg-gold-500', label:'Multiplication by tⁿ (Entry #30)',
-                eq:'L{tⁿf(t)} = (−1)ⁿ F⁽ⁿ⁾(s)',
+                eq: <span className="font-mono text-sm text-gold-600 font-bold">L&#123;tⁿf(t)&#125; = (−1)ⁿ F⁽ⁿ⁾(s)</span>,
                 note:'Multiplying by t in time = differentiating F(s) once, with a sign change.',
-                example:'L{t·f(t)} = ?',
-                solution:"L{t·f(t)} = −F'(s)   [entry #30 with n=1]",
+                question:'L{t·f(t)} = ?',
+                answer: <span className="font-mono text-xs text-green-700 font-bold">L&#123;t·f(t)&#125; = −F'(s)   [entry #30, n=1]</span>,
               },
               {
                 color:'border-purple-400', badge:'bg-purple-500', label:'Integration (Entry #32)',
-                eq:'L{∫₀ᵗ f(v)dv} = F(s)/s',
+                eq: (
+                  <div className="flex items-center justify-center gap-2 flex-wrap font-mono text-sm text-gold-600 font-bold">
+                    <span>L&#123;∫₀ᵗ f(v)dv&#125; =</span>
+                    <div className="text-center"><div className="border-b-2 border-gold-500 pb-0.5 px-2 leading-tight">F(s)</div><div className="pt-0.5 px-2 leading-tight">s</div></div>
+                  </div>
+                ),
                 note:'Integration in time corresponds to division by s.',
-                example:'L{∫₀ᵗ sin(2v)dv} = ?',
-                solution:'= [2/(s²+4)] / s = 2/(s(s²+4))',
+                question:'L{∫₀ᵗ sin(2v)dv} = ?',
+                answer: (
+                  <div className="flex items-center gap-2 flex-wrap font-mono text-xs text-green-700 font-bold">
+                    <div className="text-center"><div className="border-b-2 border-green-500 pb-0.5 px-1 leading-tight">2</div><div className="pt-0.5 px-1 leading-tight">s²+4</div></div>
+                    <span>÷ s =</span>
+                    <div className="text-center"><div className="border-b-2 border-green-500 pb-0.5 px-1 leading-tight">2</div><div className="pt-0.5 px-1 leading-tight">s(s²+4)</div></div>
+                  </div>
+                ),
               },
               {
                 color:'border-red-400', badge:'bg-red-500', label:'Frequency Shift (Entry #29)',
-                eq:'L{eᶜᵗf(t)} = F(s−c)',
+                eq: <span className="font-mono text-sm text-gold-600 font-bold">L&#123;eᶜᵗf(t)&#125; = F(s−c)</span>,
                 note:'Multiplying by eᶜᵗ in time shifts the entire transform from s to s−c.',
-                example:'L{e³ᵗ cos(6t)} = ?',
-                solution:'= (s−3)/[(s−3)²+36]   [shift cos result by 3]',
+                question:'L{e³ᵗ cos(6t)} = ?',
+                answer: (
+                  <div className="flex items-center gap-2 flex-wrap font-mono text-xs text-green-700 font-bold">
+                    <span>=</span>
+                    <div className="text-center"><div className="border-b-2 border-green-500 pb-0.5 px-1 leading-tight">s − 3</div><div className="pt-0.5 px-1 leading-tight">(s−3)² + 36</div></div>
+                    <span className="text-green-600 font-normal italic">[shift cos by 3]</span>
+                  </div>
+                ),
               },
               {
                 color:'border-teal-400', badge:'bg-teal-500', label:'Time Scaling (Entry #24)',
-                eq:'L{f(ct)} = (1/c)F(s/c)',
+                eq: (
+                  <div className="flex items-center justify-center gap-2 flex-wrap font-mono text-sm text-gold-600 font-bold">
+                    <span>L&#123;f(ct)&#125; =</span>
+                    <div className="text-center"><div className="border-b-2 border-gold-500 pb-0.5 px-1 leading-tight">1</div><div className="pt-0.5 px-1 leading-tight">c</div></div>
+                    <span>· F(</span>
+                    <div className="text-center"><div className="border-b-2 border-gold-500 pb-0.5 px-1 leading-tight">s</div><div className="pt-0.5 px-1 leading-tight">c</div></div>
+                    <span>)</span>
+                  </div>
+                ),
                 note:'Compressing time expands the s-domain (and vice versa).',
-                example:'L{f(10t)} = ? where F(s) is known',
-                solution:'= (1/10)F(s/10)',
+                question:'L{f(10t)} = ? where F(s) is known',
+                answer: (
+                  <div className="flex items-center gap-2 flex-wrap font-mono text-xs text-green-700 font-bold">
+                    <span>=</span>
+                    <div className="text-center"><div className="border-b-2 border-green-500 pb-0.5 px-1 leading-tight">1</div><div className="pt-0.5 px-1 leading-tight">10</div></div>
+                    <span>· F(</span>
+                    <div className="text-center"><div className="border-b-2 border-green-500 pb-0.5 px-1 leading-tight">s</div><div className="pt-0.5 px-1 leading-tight">10</div></div>
+                    <span>)</span>
+                  </div>
+                ),
               },
             ].map((prop, i) => (
               <div key={i} className={`glass rounded-xl p-4 border-l-4 ${prop.color}`}>
@@ -621,14 +856,17 @@ export default function LaplacePage() {
                   <span className={`px-2 py-0.5 rounded-lg ${prop.badge} text-white text-xs font-bold`}>{i+1}</span>
                   <span className="font-heading font-bold text-navy-500 text-sm">{prop.label}</span>
                 </div>
-                <div className="font-mono text-sm text-gold-600 font-bold text-center py-2 bg-gray-50 rounded-lg mb-2">
+                <div className="flex items-center justify-center py-3 bg-gray-50 rounded-lg mb-2 min-h-[48px]">
                   {prop.eq}
                 </div>
                 <p className="text-xs text-navy-400 mb-2">{prop.note}</p>
                 <Collapsible label="Show worked example">
                   <div className="space-y-2 mt-2">
-                    <div className="bg-blue-50 rounded-lg px-3 py-2 text-xs font-semibold text-blue-700">Find: {prop.example}</div>
-                    <div className="bg-green-50 rounded-lg px-3 py-2 font-mono text-xs text-green-700 font-bold">Answer: {prop.solution}</div>
+                    <div className="bg-blue-50 rounded-lg px-3 py-2 text-xs font-semibold text-blue-700">Find: {prop.question}</div>
+                    <div className="bg-green-50 rounded-lg px-3 py-2 flex items-center gap-1 flex-wrap">
+                      <span className="text-xs font-semibold text-green-700 mr-1">Answer:</span>
+                      {prop.answer}
+                    </div>
                   </div>
                 </Collapsible>
               </div>
@@ -682,165 +920,131 @@ export default function LaplacePage() {
             <span className="text-2xl">✏️</span>
             <h2 className="font-heading font-bold text-navy-500 text-lg">Worked examples</h2>
           </div>
-          <div className="space-y-3">
-            {([
+
+          {/* Reusable fraction helper */}
+          {(() => {
+            const Frac = ({ n, d, color='border-navy-400 text-navy-500' }: { n: string; d: string; color?: string }) => (
+              <div className="text-center inline-flex flex-col items-center mx-0.5">
+                <div className={`font-mono text-sm font-bold border-b-2 pb-0.5 px-2 leading-tight ${color}`}>{n}</div>
+                <div className={`font-mono text-sm font-bold pt-0.5 px-2 leading-tight ${color.split(' ').filter(c=>c.startsWith('text-')).join(' ')}`}>{d}</div>
+              </div>
+            )
+            const GFrac = ({ n, d }: { n: string; d: string }) => <Frac n={n} d={d} color="border-gold-400 text-gold-400"/>
+
+            const examples = [
               {
                 label:'A', color:'border-blue-400', badge:'bg-blue-500',
-                q:'Find G(s) for:',
-                fn:'g(t) = 4cos(4t) − 9sin(4t) + 2cos(10t)',
+                q:'Find G(s) for:', fn:'g(t) = 4cos(4t) − 9sin(4t) + 2cos(10t)',
                 hint:'Use entries #7 and #8 with linearity.',
                 steps:[
-                  { desc:'Apply linearity + entry #8 for cos(4t) and entry #7 for sin(4t)', num:'4s', den:'s²+16', op:'−', num2:'9·4', den2:'s²+16', extra:'+ 2s / (s²+100)' },
-                  { desc:'Simplify numerators', num:'4s', den:'s²+16', op:'−', num2:'36', den2:'s²+16', extra:'+ 2s / (s²+100)' },
+                  { desc:'Entry #8 for cos(4t), entry #7 for sin(4t), with linearity',
+                    body: <div className="flex items-center gap-2 justify-center flex-wrap"><Frac n="4s" d="s²+16"/> <span className="font-mono font-bold text-navy-400">−</span> <Frac n="9·4" d="s²+16"/> <span className="font-mono font-bold text-navy-500">+</span> <Frac n="2s" d="s²+100"/></div> },
+                  { desc:'Simplify numerators',
+                    body: <div className="flex items-center gap-2 justify-center flex-wrap"><Frac n="4s" d="s²+16"/> <span className="font-mono font-bold text-navy-400">−</span> <Frac n="36" d="s²+16"/> <span className="font-mono font-bold text-navy-500">+</span> <Frac n="2s" d="s²+100"/></div> },
                 ],
-                finalLabel:'G(s)',
-                finalNum:'4s − 36',
-                finalDen:'s² + 16',
-                finalExtra:'  +  2s / (s² + 100)',
+                finalLabel:'G(s)', finalBody: <div className="flex items-center gap-2 justify-center flex-wrap"><GFrac n="4s − 36" d="s² + 16"/> <span className="font-mono font-bold text-gold-300">+</span> <GFrac n="2s" d="s² + 100"/></div>,
               },
               {
                 label:'B', color:'border-green-400', badge:'bg-green-500',
-                q:'Find H(s) for:',
-                fn:'h(t) = 3sinh(2t) + 3sin(2t)',
+                q:'Find H(s) for:', fn:'h(t) = 3sinh(2t) + 3sin(2t)',
                 hint:'Use entry #17 for sinh, entry #7 for sin.',
                 steps:[
-                  { desc:'Apply linearity: entry #17 gives a/(s²−a²), entry #7 gives a/(s²+a²)', num:'3·2', den:'s²−4', op:'+', num2:'3·2', den2:'s²+4', extra:'' },
+                  { desc:'Entry #17: a/(s²−a²), entry #7: a/(s²+a²), with a=2',
+                    body: <div className="flex items-center gap-2 justify-center flex-wrap"><Frac n="3·2" d="s²−4"/> <span className="font-mono font-bold text-navy-500">+</span> <Frac n="3·2" d="s²+4"/></div> },
                 ],
-                finalLabel:'H(s)',
-                finalNum:'6',
-                finalDen:'s² − 4',
-                finalExtra:'  +  6 / (s² + 4)',
+                finalLabel:'H(s)', finalBody: <div className="flex items-center gap-2 justify-center flex-wrap"><GFrac n="6" d="s² − 4"/> <span className="font-mono font-bold text-gold-300">+</span> <GFrac n="6" d="s² + 4"/></div>,
               },
               {
                 label:'C', color:'border-amber-400', badge:'bg-amber-500',
-                q:'Find G(s) for:',
-                fn:'g(t) = e³ᵗ + cos(6t) − e³ᵗcos(6t)',
+                q:'Find G(s) for:', fn:'g(t) = e³ᵗ + cos(6t) − e³ᵗcos(6t)',
                 hint:'Use #2 for e³ᵗ, #8 for cos(6t), #20 for e³ᵗcos(6t) (frequency shift).',
                 steps:[
-                  { desc:'Entry #2: L{e³ᵗ} = 1/(s−3)', num:'1', den:'s−3', op:'', num2:'', den2:'', extra:'' },
-                  { desc:'Entry #8: L{cos(6t)} = s/(s²+36)', num:'s', den:'s²+36', op:'', num2:'', den2:'', extra:'' },
-                  { desc:'Entry #20: L{e³ᵗcos(6t)} = (s−3)/[(s−3)²+36]', num:'s−3', den:'(s−3)²+36', op:'', num2:'', den2:'', extra:'' },
+                  { desc:'Entry #2: L{e³ᵗ}', body: <div className="flex items-center gap-2 justify-center"><Frac n="1" d="s−3"/></div> },
+                  { desc:'Entry #8: L{cos(6t)}', body: <div className="flex items-center gap-2 justify-center"><Frac n="s" d="s²+36"/></div> },
+                  { desc:'Entry #20: L{e³ᵗcos(6t)}', body: <div className="flex items-center gap-2 justify-center"><Frac n="s−3" d="(s−3)²+36"/></div> },
                 ],
-                finalLabel:'G(s)',
-                finalNum:'1',
-                finalDen:'s − 3',
-                finalExtra:'  +  s/(s²+36)  −  (s−3)/[(s−3)²+36]',
+                finalLabel:'G(s)', finalBody: <div className="flex items-center gap-2 justify-center flex-wrap"><GFrac n="1" d="s − 3"/> <span className="font-mono font-bold text-gold-300">+</span> <GFrac n="s" d="s²+36"/> <span className="font-mono font-bold text-gold-300">−</span> <GFrac n="s−3" d="(s−3)²+36"/></div>,
               },
               {
                 label:'D', color:'border-purple-400', badge:'bg-purple-500',
-                q:'Find F(s) for: (not directly in table)',
-                fn:'f(t) = t · cosh(3t)',
-                hint:'Entry #30: L{t·g(t)} = −G\'(s). Let g(t) = cosh(3t).',
+                q:'Find F(s) for: (not directly in table)', fn:'f(t) = t · cosh(3t)',
+                hint:"Entry #30: L{t·g(t)} = −G'(s). Let g(t) = cosh(3t).",
                 steps:[
-                  { desc:'Entry #18: G(s) = cosh(3t) transform', num:'s', den:'s²−9', op:'', num2:'', den2:'', extra:'' },
-                  { desc:"Differentiate G(s): G'(s) = d/ds [s/(s²−9)]", num:'−(s²+9)', den:'(s²−9)²', op:'', num2:'', den2:'', extra:'' },
-                  { desc:"Apply entry #30: F(s) = −G'(s)", num:'s²+9', den:'(s²−9)²', op:'', num2:'', den2:'', extra:'' },
+                  { desc:'Entry #18: G(s) = L{cosh(3t)}', body: <div className="flex items-center gap-2 justify-center"><Frac n="s" d="s²−9"/></div> },
+                  { desc:"G'(s) = differentiate s/(s²−9)", body: <div className="flex items-center gap-2 justify-center"><Frac n="−(s²+9)" d="(s²−9)²"/></div> },
+                  { desc:"F(s) = −G'(s)", body: <div className="flex items-center gap-2 justify-center"><Frac n="s²+9" d="(s²−9)²"/></div> },
                 ],
-                finalLabel:'F(s)',
-                finalNum:'s² + 9',
-                finalDen:'(s² − 9)²',
-                finalExtra:'',
+                finalLabel:'F(s)', finalBody: <div className="flex items-center gap-2 justify-center"><GFrac n="s² + 9" d="(s² − 9)²"/></div>,
               },
               {
                 label:'E', color:'border-red-400', badge:'bg-red-500',
-                q:'Find H(s) for:',
-                fn:'h(t) = t² · sin(2t)',
-                hint:'Use entry #30 twice (n=1) on f(t)=t·sin(2t), or once (n=2) on sin(2t).',
+                q:'Find H(s) for:', fn:'h(t) = t² · sin(2t)',
+                hint:'Use entry #30 with n=1 on f(t)=t·sin(2t).',
                 steps:[
-                  { desc:'Entry #9: L{t·sin(2t)} = 2as/(s²+a²)², with a=2', num:'4s', den:'(s²+4)²', op:'', num2:'', den2:'', extra:'' },
-                  { desc:"Differentiate F(s): F'(s) using quotient rule", num:'−(12s²−16)', den:'(s²+4)³', op:'', num2:'', den2:'', extra:'' },
-                  { desc:"Apply entry #30 with n=1: H(s) = −F'(s)", num:'12s²−16', den:'(s²+4)³', op:'', num2:'', den2:'', extra:'' },
+                  { desc:'Entry #9: L{t·sin(2t)}, a=2', body: <div className="flex items-center gap-2 justify-center"><Frac n="4s" d="(s²+4)²"/></div> },
+                  { desc:"F'(s) via quotient rule", body: <div className="flex items-center gap-2 justify-center"><Frac n="−(12s²−16)" d="(s²+4)³"/></div> },
+                  { desc:"H(s) = −F'(s)", body: <div className="flex items-center gap-2 justify-center"><Frac n="12s²−16" d="(s²+4)³"/></div> },
                 ],
-                finalLabel:'H(s)',
-                finalNum:'12s² − 16',
-                finalDen:'(s² + 4)³',
-                finalExtra:'',
+                finalLabel:'H(s)', finalBody: <div className="flex items-center gap-2 justify-center"><GFrac n="12s² − 16" d="(s² + 4)³"/></div>,
               },
               {
                 label:'F', color:'border-teal-400', badge:'bg-teal-500',
-                q:'Find G(s) for:',
-                fn:'g(t) = t^(3/2)',
-                hint:'Note: t^(3/2) = (3/2)∫₀ᵗ√v dv. Use entry #32 (integration) and entry #5 (√t).',
+                q:'Find G(s) for:', fn:'g(t) = t^(3/2)',
+                hint:'Use entry #32 and entry #5: t^(3/2) = (3/2)∫₀ᵗ√v dv.',
                 steps:[
-                  { desc:'∫₀ᵗ √v dv = (2/3)t^(3/2)   ⟹   t^(3/2) = (3/2)∫₀ᵗ √v dv', num:'', den:'', op:'', num2:'', den2:'', extra:'', note:true },
-                  { desc:'Entry #5: L{√t} = √π / (2s^(3/2))', num:'√π', den:'2s^(3/2)', op:'', num2:'', den2:'', extra:'' },
-                  { desc:'Entry #32: divide by s, multiply by (3/2)', num:'(3/2)·√π', den:'2s^(3/2)·s', op:'', num2:'', den2:'', extra:'' },
+                  { desc:'Identity: ∫₀ᵗ √v dv = (2/3)t^(3/2)  ⟹  t^(3/2) = (3/2)∫₀ᵗ √v dv', body: null },
+                  { desc:'Entry #5: L{√t}', body: <div className="flex items-center gap-2 justify-center"><Frac n="√π" d="2s^(3/2)"/></div> },
+                  { desc:'Entry #32: divide by s, multiply by 3/2', body: <div className="flex items-center gap-2 justify-center"><Frac n="(3/2)·√π" d="2s^(3/2)·s"/></div> },
                 ],
-                finalLabel:'G(s)',
-                finalNum:'3√π',
-                finalDen:'4s^(5/2)',
-                finalExtra:'',
+                finalLabel:'G(s)', finalBody: <div className="flex items-center gap-2 justify-center"><GFrac n="3√π" d="4s^(5/2)"/></div>,
               },
               {
                 label:'G', color:'border-indigo-400', badge:'bg-indigo-500',
-                q:'Find F(s) for:',
-                fn:'f(t) = (10t)^(3/2)',
-                hint:'Note f(t) = g(10t) where g(t) = t^(3/2). Use entry #24: L{f(ct)} = (1/c)F(s/c).',
+                q:'Find F(s) for:', fn:'f(t) = (10t)^(3/2)',
+                hint:'f(t) = g(10t). Use entry #24: L{f(ct)} = (1/c)F(s/c).',
                 steps:[
-                  { desc:'From Example F: G(s) = 3√π / (4s^(5/2))', num:'3√π', den:'4s^(5/2)', op:'', num2:'', den2:'', extra:'' },
-                  { desc:'Entry #24 with c=10: F(s) = (1/10)·G(s/10)', num:'(1/10)·3√π', den:'4·(s/10)^(5/2)', op:'', num2:'', den2:'', extra:'' },
-                  { desc:'Simplify: (1/10)·10^(5/2) = 10^(3/2)', num:'10^(3/2)·3√π', den:'4s^(5/2)', op:'', num2:'', den2:'', extra:'' },
+                  { desc:'From Example F: G(s)', body: <div className="flex items-center gap-2 justify-center"><Frac n="3√π" d="4s^(5/2)"/></div> },
+                  { desc:'Entry #24, c=10: F(s) = (1/10)·G(s/10)', body: <div className="flex items-center gap-2 justify-center"><div className="text-center inline-flex flex-col items-center mx-0.5"><div className="font-mono text-sm font-bold border-b-2 border-navy-400 pb-0.5 px-2 leading-tight text-navy-500">(1/10)·3√π</div><div className="font-mono text-sm font-bold pt-0.5 px-2 leading-tight text-navy-500">4·(s/10)^(5/2)</div></div></div> },
+                  { desc:'Simplify: (1/10)·10^(5/2) = 10^(3/2)', body: <div className="flex items-center gap-2 justify-center"><Frac n="10^(3/2)·3√π" d="4s^(5/2)"/></div> },
                 ],
-                finalLabel:'F(s)',
-                finalNum:'10^(3/2) · 3√π',
-                finalDen:'4s^(5/2)',
-                finalExtra:'',
+                finalLabel:'F(s)', finalBody: <div className="flex items-center gap-2 justify-center"><GFrac n="10^(3/2) · 3√π" d="4s^(5/2)"/></div>,
               },
-            ] as const).map((ex, i) => (
-              <div key={i} className={`glass rounded-xl p-4 border-l-4 ${ex.color}`}>
-                {/* Question — always visible */}
-                <div className="flex items-start gap-3 mb-2">
-                  <span className={`w-7 h-7 rounded-full ${ex.badge} text-white flex items-center justify-center text-xs font-bold shrink-0`}>{ex.label}</span>
-                  <div className="flex-1">
-                    <div className="text-xs text-navy-300 font-medium">{ex.q}</div>
-                    <div className="font-heading font-bold text-navy-500 text-sm mt-0.5">{ex.fn}</div>
-                    <div className="text-xs text-navy-300 italic mt-1">{ex.hint}</div>
-                  </div>
-                </div>
-                <Collapsible label="Show solution">
-                  <div className="space-y-3 mt-3">
-                    {ex.steps.map((step, j) => (
-                      <div key={j} className="bg-gray-50 rounded-xl p-3">
-                        <div className="text-xs text-navy-300 mb-2 font-medium">Step {j+1}: {step.desc}</div>
-                        {(step as any).note ? null : (
-                          <div className="flex items-center gap-2 justify-center">
-                            {step.num && (
-                              <div className="text-center">
-                                <div className="font-mono text-sm font-bold text-navy-500 border-b-2 border-navy-400 pb-0.5 px-2">{step.num}</div>
-                                <div className="font-mono text-sm font-bold text-navy-500 pt-0.5 px-2">{step.den}</div>
-                              </div>
-                            )}
-                            {step.op && <span className="font-bold text-navy-400 text-lg">{step.op}</span>}
-                            {step.num2 && (
-                              <div className="text-center">
-                                <div className="font-mono text-sm font-bold text-navy-500 border-b-2 border-navy-400 pb-0.5 px-2">{step.num2}</div>
-                                <div className="font-mono text-sm font-bold text-navy-500 pt-0.5 px-2">{step.den2}</div>
-                              </div>
-                            )}
-                            {step.extra && <span className="font-mono text-sm text-navy-500 font-bold">{step.extra}</span>}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    {/* Final answer */}
-                    <div className="rounded-xl p-4 bg-navy-500">
-                      <div className="text-xs text-white/50 text-center mb-2">Final Answer</div>
-                      <div className="flex items-center justify-center gap-3">
-                        <span className="text-gold-400 font-mono font-bold text-sm">{ex.finalLabel} =</span>
-                        {ex.finalNum && (
-                          <div className="text-center">
-                            <div className="font-mono text-base font-bold text-gold-400 border-b-2 border-gold-400 pb-0.5 px-3">{ex.finalNum}</div>
-                            <div className="font-mono text-base font-bold text-gold-400 pt-0.5 px-3">{ex.finalDen}</div>
-                          </div>
-                        )}
-                        {ex.finalExtra && <span className="font-mono text-sm text-gold-300">{ex.finalExtra}</span>}
+            ]
+
+            return (
+              <div className="space-y-3">
+                {examples.map((ex, i) => (
+                  <div key={i} className={`glass rounded-xl p-4 border-l-4 ${ex.color}`}>
+                    <div className="flex items-start gap-3 mb-2">
+                      <span className={`w-7 h-7 rounded-full ${ex.badge} text-white flex items-center justify-center text-xs font-bold shrink-0`}>{ex.label}</span>
+                      <div className="flex-1">
+                        <div className="text-xs text-navy-300 font-medium">{ex.q}</div>
+                        <div className="font-heading font-bold text-navy-500 text-sm mt-0.5">{ex.fn}</div>
+                        <div className="text-xs text-navy-300 italic mt-1">{ex.hint}</div>
                       </div>
                     </div>
+                    <Collapsible label="Show solution">
+                      <div className="space-y-3 mt-3">
+                        {ex.steps.map((step, j) => (
+                          <div key={j} className="bg-gray-50 rounded-xl p-3">
+                            <div className="text-xs text-navy-300 mb-2 font-medium">Step {j+1}: {step.desc}</div>
+                            {step.body}
+                          </div>
+                        ))}
+                        <div className="rounded-xl p-4 bg-navy-500">
+                          <div className="text-xs text-white/50 text-center mb-3">Final Answer</div>
+                          <div className="flex items-center justify-center gap-2">
+                            <span className="text-gold-400 font-mono font-bold text-sm">{ex.finalLabel} =</span>
+                            {ex.finalBody}
+                          </div>
+                        </div>
+                      </div>
+                    </Collapsible>
                   </div>
-                </Collapsible>
+                ))}
               </div>
-            ))}
-          </div>
+            )
+          })()}
         </div>
 
         {/* ── 8. KEY TERMS ────────────────────────────────────── */}
@@ -882,11 +1086,11 @@ export default function LaplacePage() {
           </div>
         </div>
 
-        {/* ── 10. PDF DOWNLOAD ────────────────────────────────── */}
+        {/* ── 10. PDF1 DOWNLOAD ────────────────────────────────── */}
         <div className="glass rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300" style={cs(0.37)}>
           <div className="flex items-center gap-3 mb-3">
             <span className="text-2xl">📄</span>
-            <h2 className="font-heading font-bold text-navy-500 text-lg">Session 3 Lecture Notes</h2>
+            <h2 className="font-heading font-bold text-navy-500 text-lg">Session 3 Lecture Notes #1</h2>
           </div>
           <p className="text-sm text-navy-400 leading-relaxed mb-4">
             Full PDF including all derivations, the complete 37-entry table, worked examples, and glossary.
@@ -901,6 +1105,34 @@ export default function LaplacePage() {
               View PDF notes
             </button>
             <a href="/MEEN424_Session3_Notes.pdf" download
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gold-500 text-navy-500 font-semibold text-sm hover:bg-gold-400 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
+              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
+                <path d="M8 2v8M4 7l4 4 4-4M2 13h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Download
+            </a>
+          </div>
+        </div>
+
+        {/* ── 10. PDF2 DOWNLOAD ────────────────────────────────── */}
+        <div className="glass rounded-2xl p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300" style={cs(0.37)}>
+          <div className="flex items-center gap-3 mb-3">
+            <span className="text-2xl">📄</span>
+            <h2 className="font-heading font-bold text-navy-500 text-lg">Session 3 Lecture Notes #2</h2>
+          </div>
+          <p className="text-sm text-navy-400 leading-relaxed mb-4">
+            Full PDF including all derivations, the complete 37-entry table, worked examples, and glossary.
+          </p>
+          <div className="flex gap-3 flex-wrap">
+            <button onClick={() => setNotesPdfOpen(true)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy-500 text-white font-semibold text-sm hover:bg-navy-400 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
+              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
+                <path d="M2 2h9l3 3v9H2V2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                <path d="M9 2v3h3M5 9h6M5 12h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              View PDF notes
+            </button>
+            <a href="/MEEN424_Session3_Notes_part2.pdf" download
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gold-500 text-navy-500 font-semibold text-sm hover:bg-gold-400 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200">
               <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
                 <path d="M8 2v8M4 7l4 4 4-4M2 13h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -978,6 +1210,36 @@ export default function LaplacePage() {
             </div>
             <div className="flex-1 bg-gray-100">
               <iframe src="/MEEN424_Session3_Notes.pdf" className="w-full h-full" title="Session 3 Notes" style={{ border: 'none' }}/>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── NOTES PDF MODAL ─────────────────────────────────── */}
+      {notesPdfOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(11,42,74,0.80)', backdropFilter: 'blur(8px)' }}
+          onClick={() => setNotesPdfOpen(false)}>
+          <div className="bg-white rounded-2xl overflow-hidden w-full max-w-4xl shadow-2xl flex flex-col"
+            style={{ height: '90vh' }} onClick={e => e.stopPropagation()}>
+            <div className="bg-navy-500 px-5 py-3 flex items-center gap-3 shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-gold-500 flex items-center justify-center text-navy-500 font-bold text-xs shrink-0">PDF</div>
+              <div className="flex-1 min-w-0">
+                <div className="font-heading font-bold text-white text-sm">Session 3 Lecture Notes</div>
+                <div className="text-xs text-white/50 font-mono">MEEN 424 — Laplace Transform Review</div>
+              </div>
+              <a href="/MEEN424_Session3_Notes_part2.pdf" download
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition-colors shrink-0">
+                <svg className="w-3.5 h-3.5 mr-1" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 2v8M4 7l4 4 4-4M2 13h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                Download
+              </a>
+              <button onClick={() => setNotesPdfOpen(false)}
+                className="w-8 h-8 rounded-lg bg-white/10 hover:bg-red-500 flex items-center justify-center text-white transition-colors shrink-0 text-sm font-bold">X</button>
+            </div>
+            <div className="flex-1 bg-gray-100">
+              <iframe src="/MEEN424_Session3_Notes_part2.pdf" className="w-full h-full" title="Session 3 Notes" style={{ border: 'none' }}/>
             </div>
           </div>
         </div>

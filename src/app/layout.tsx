@@ -5,6 +5,8 @@ import { JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css"/>
+
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
